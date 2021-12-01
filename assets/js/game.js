@@ -14,6 +14,12 @@ var enemyAttack = 12;
 //    * Fight all enemy-robots
 // "LOSE" - Player robot's health is zero or less
 
+var randomNumber = function(min, max) {
+    var value = Math.floor(Math.random() * (max - min + 1)) + min;
+
+    return value;
+}
+
 var fight = function(enemyName) {
     while(playerHealth > 0 && enemyHealth > 0) {
         var promptFight = window.prompt("Would you like to FIGHT or SKIP  this battle? Enter 'FIGHT' or 'SKIP' to choose.");
@@ -32,8 +38,9 @@ var fight = function(enemyName) {
         }
         // if player chooses fight.
         if (promptFight === "fight" || promptFight === "FIGHT") {
+            var damage = randomNumber(playerAttack - 3, playerAttack);
             //Subtract the value of 'playerAttack from the value of 'enemyHealth and us that result to update the value in the 'enemyHealth' variable
-            enemyHealth = enemyHealth - playerAttack;
+            enemyHealth = Math.max(0, enemyHealth - damage);
             //Log a resulting message to the console so we know that it worked.
             console.log(
                 playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " health remaining."
@@ -42,13 +49,15 @@ var fight = function(enemyName) {
             if (enemyHealth <= 0) {
                 window.alert(enemyName + " had died!");
                 // Reward player
-                playerMoney = playerMoney + 10
+                playerMoney = Math.max(0, playerMoney + 10);
                 break;
             } else {
                 window.alert(enemyName + " still has " + enemyHealth + " health left.");
             }
             // Subtract the value of 'enemyAttack' from the value of 'playerHealth' and use that result to update the value in the 'playerHealth' variable.
-            playerHealth = playerHealth - enemyAttack;
+            var damage = randomNumber(enemyAttack - 3, enemyAttack);
+
+            playerHealth = Math.max(0, playerHealth - damage);
             // Log a resulting message to the console so we know that it worked.
             console.log(
                 enemyName + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining."
@@ -74,7 +83,7 @@ var startGame = function() {
         if (playerHealth > 0) {
             window.alert("Welcome to Robot Gladiators! Round " + (i + 1) );
             var pickedEnemyName = enemyNames[i];
-            enemyHealth = 50;
+            enemyHealth = randomNumber(49, 60);
             fight(pickedEnemyName);
             if (playerHealth > 0 && i < enemyNames.length - 1) {
                 var storeConfirm = window.confirm("The fight is over, visit the store before the next round?");
