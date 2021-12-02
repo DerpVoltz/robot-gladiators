@@ -33,7 +33,9 @@ var fightOrSkip = function() {
 
 var fight = function(enemy) {
     while(playerInfo.health > 0 && enemy.health > 0) {
-        fightOrSkip();
+        if (fightOrSkip()) {
+            break;
+        }
         // if player chooses fight.
         var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
         //Subtract the value of 'playerInfo.attack from the value of 'enemy.health and us that result to update the value in the 'enemy.health' variable
@@ -114,17 +116,15 @@ var shop = function() {
     var shopOptionPrompt = window.prompt(
         "Would you like to REFILL your health, Upgrade your attack, or LEAVE? Please enter one: 'Refill', 'Upgrade', or 'Leave' to make a choice."
     );
+    shopOptionPrompt = parseInt(shopOptionPrompt);
     switch (shopOptionPrompt) {
-        case "REFILL":
-        case "refill":
+        case 1:
             playerInfo.refillHealth();
             break;
-        case "UPGRADE":
-        case "upgrade":
+        case 2:
             playerInfo.upgradeAttack();
             break;
-        case "LEAVE":
-        case "leave":
+        case 3:
             window.alert("Leaving the store.");
             break;
         default:
