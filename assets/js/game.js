@@ -129,6 +129,7 @@ var shop = function() {
     }
 }
 
+<<<<<<< HEAD
  var getPlayerName = function() {
      var name = "";
 
@@ -142,6 +143,10 @@ var shop = function() {
 
 var playerInfo = {
     name: getPlayerName(),
+=======
+var playerInfo = {
+    name: window.prompt("What is your robot's name?"),
+>>>>>>> faae1b889701bb8f44260fb4c6c37603bb2fbef3
     health: 100,
     attack: 10,
     money: 10,
